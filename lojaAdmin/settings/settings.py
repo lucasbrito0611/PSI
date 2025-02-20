@@ -11,9 +11,6 @@ STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--@q81ap$%h#3fqqot15-2z@s4%g%d9je=$o5#a6l&^a+ilbq1y'
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,8 +59,13 @@ WSGI_APPLICATION = 'lojaAdmin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbpsi',
+        'USER': 'dbpsi_owner',
+        'PASSWORD': 'npg_sSPlDnTd4L0K',
+        'HOST': 'ep-restless-fog-a8zfr0gh-pooler.eastus2.azure.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
