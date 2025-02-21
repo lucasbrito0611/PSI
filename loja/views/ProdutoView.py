@@ -130,7 +130,7 @@ def create_produto_view(request, id=None):
         preco = request.POST.get('preco')
         categoria = request.POST.get('CategoriaFk')
         fabricante = request.POST.get('FabricanteFk')
-        image = request.POST.get('image')
+        image = request.FILES.get('image')
 
         try:
             obj_produto = Produto()
@@ -150,15 +150,8 @@ def create_produto_view(request, id=None):
             obj_produto.criado_em = timezone.now()
             obj_produto.alterado_em = obj_produto.criado_em
 
-            if request.FILES is not None:
-                num_files = len(request.FILES.getlist('image'))
-                if num_files > 0:
-                    imagefile = request.FILES['image']
-                    fs = FileSystemStorage()
-                    filename = fs.save(imagefile.name, imagefile)
-
-                    if (filename is not None) and (filename != ''):
-                        obj_produto.image = filename
+            if image:
+                obj_produto.image = image.read()
 
             obj_produto.save()
             print('Produto %s salvo com sucesso' % produto)
