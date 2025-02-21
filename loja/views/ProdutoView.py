@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 from django.utils import timezone
 
 from loja.models import Produto, Fabricante, Categoria
@@ -170,3 +171,11 @@ def create_produto_view(request, id=None):
     context = {'fabricantes': Fabricantes, 'categorias': Categorias }
 
     return render(request, template_name='produto/produto-create.html', context=context, status=200)
+
+def get_image(request, produto_id):
+    produto = Produto.objects.get(id=produto_id)
+    
+    if produto.image:
+        return HttpResponse(produto.image, content_type="image/jpeg")
+    
+    return HttpResponse("Nenhuma imagem encontrada", status=404)
